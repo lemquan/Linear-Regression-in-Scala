@@ -11,10 +11,10 @@ sbt run
 ```
 This will give the option to run either the analytical LR or gradient LR. 
 
-# Let's talk Math
+# Math Time
 Linear regression can be solved in two ways 1) approximiation 2) analytical solution. We will demonstrate both techniques. 
 
 ## Linear Regression with Gradient Descent
 The file grad_lr.scala will be the code reference for this section.
 
-We demonstrate how gradient descent can be performe on linear regression. The essential bits of this cide is in the LinearRegression class. A linear line is defined as $y = mx + b$
+We demonstrate how gradient descent can be performe on linear regression. The essential bits of this cide is in the LinearRegression class. A linear line is defined as $\pi$

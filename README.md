@@ -2,7 +2,7 @@
 This is a simple example of Linear Regression in Scala with gradient descent to optimise the parameters and an analytical version where we directly solve the matrix. The file grad_lr.scala provides the whole class. There is a file of a simple data where we preform the prediction as well. We will delve into some theory, but the core of this tutorial is to see the use of Scala for matrix operations and ML.  
 
 # Running the code
-The code is packaged with SBT to include breeze. Ensure that Scala and SBT are installed. You may need to change build.sbt to reflect your version of scala. (line 5). As plotting is enable, Mac users may need to enable X11. My development is done on a Vagrant Ubuntu box.  
+The code is packaged with SBT to include breeze for plotting and matrix operations. Ensure that Scala and SBT are installed. You may need to change build.sbt to reflect your version of scala. (line 5). As plotting is enable, Mac users may need to enable X11. My development is done on a Vagrant Ubuntu box.  
 
 To run:
 ```
@@ -21,4 +21,41 @@ We demonstrate how gradient descent can be performe on linear regression. The es
 ```
 y = mx + b
 ```
-Since our data is 1-D, we have a single variate linear regression. We will only worry about the coefficient b and slope m where m is a regressor. 
+Since our data is 1-D, we have a single variate linear regression. We will only worry about the coefficient b and slope m where m is the regressor. At this point, we will refer to b and m as theta. We optimise the parameter theta by running gradient descent as seen in the function run_grad_descent. What exactly are we optimising against? We optimise theta in order to obtain the lowest error. In this case, we use the simple mean squared error for our loss function: 
+```
+insert image for MSE
+```
+
+ The function calls another function grad_step. This is essential as we took the partial derivatives of the loss function with respect to theta. Recall that theta includes b and m. 
+```
+insert imgaes of partial derivatives for b and m
+``` 
+We then allow GD to run for 1000 iterations whilst calculating the loss 
+each iteration. You will observe the error decreasing, and at some point stabilising.
+
+## Analytical Linear Regression using the Normal Equation
+The file analytical_lr.scala is the code reference. Please note that this code requires breeze in order to run.
+
+ Another way to perform linear regression is to solve directly analytically the matrices. This method is easier to code, however, not preferred as the running time is O(n^3) where n is the number of features. Since, we have 1 feature this is managable. Usually, n < 1000 is tractable.
+
+The normal equation is 
+```
+(X^T X)B = X^T y
+```
+
+Upon rearranging, we solve for B in order to find the parameters
+```
+B = (X^T X)^-1 X^T y
+``` 
+We use breeze to apply matrix operations to solve the equation. Examining the matrix, one may ask why we added a column of ones. First, it is for numerical stability and also to get the interceptor coefficient. Without the column of ones, we would only solve for the regression coefficient (m in this case). 
+
+On line 25, we show a shortcut of how that whole equation can be encoded into the normal equation. 
+
+```
+Ax = b
+x = A\b
+```
+Most programming langauges (i.e. R, Python, Julia, and MatLab) will support the backslash operation. This gives the exact idential solution. 
+
+# Conclusion
+We demonstrated how linear regression can be done in Scala using gradient descent and matrices. You may ask why the solution of GD and matrices differ. GD is an approximation, not exact like the analytical solution. This could be the fault of our initial starting points for m and b.  

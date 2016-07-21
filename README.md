@@ -17,4 +17,8 @@ Linear regression can be solved in two ways 1) approximiation 2) analytical solu
 ## Linear Regression with Gradient Descent
 The file grad_lr.scala will be the code reference for this section.
 
-We demonstrate how gradient descent can be performe on linear regression. The essential bits of this cide is in the LinearRegression class. A linear line is defined as $\pi$
+We demonstrate how gradient descent can be performe on linear regression. The essential bits of this cide is in the LinearRegression class. A linear line is defined as 
+
+\begin{equation}
+y = mx+b
+\end{equation}

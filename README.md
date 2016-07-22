@@ -22,14 +22,11 @@ We demonstrate how gradient descent can be performe on linear regression. The es
 y = mx + b
 ```
 Since our data is 1-D, we have a single variate linear regression. We will only worry about the coefficient b and slope m where m is the regressor. At this point, we will refer to b and m as theta. We optimise the parameter theta by running gradient descent as seen in the function run_grad_descent. What exactly are we optimising against? We optimise theta in order to obtain the lowest error. In this case, we use the simple mean squared error for our loss function: 
-```
-insert image for MSE
-```
+![alt text][error]
 
  The function calls another function grad_step. This is essential as we took the partial derivatives of the loss function with respect to theta. Recall that theta includes b and m. 
-```
-insert imgaes of partial derivatives for b and m
-``` 
+![alt text][partials]
+
 We then allow GD to run for 1000 iterations whilst calculating the loss 
 each iteration. You will observe the error decreasing, and at some point stabilising.
 
@@ -40,13 +37,13 @@ The file analytical_lr.scala is the code reference. Please note that this code r
 
 The normal equation is 
 ```
-(X^T X)B = X^T y
+(X.T X)B = X.T y
+B = (X.T X)^-1 X.T Y
 ```
 
-Upon rearranging, we solve for B in order to find the parameters
-```
-B = (X^T X)^-1 X^T y
-``` 
+Upon rearranging, we solve for in order to find the parameters
+![alt text][normal]
+
 We use breeze to apply matrix operations to solve the equation. Examining the matrix, one may ask why we added a column of ones. First, it is for numerical stability and also to get the interceptor coefficient. Without the column of ones, we would only solve for the regression coefficient (m in this case). 
 
 On line 25, we show a shortcut of how that whole equation can be encoded into the normal equation. 
@@ -59,3 +56,7 @@ Most programming langauges (i.e. R, Python, Julia, and MatLab) will support the 
 
 # Conclusion
 We demonstrated how linear regression can be done in Scala using gradient descent and matrices. You may ask why the solution of GD and matrices differ. GD is an approximation, not exact like the analytical solution. This could be the fault of our initial starting points for m and b.  
+
+[error]: https://spin.atomicobject.com/wp-content/uploads/linear_regression_error1.png
+[partials]: https://spin.atomicobject.com/wp-content/uploads/linear_regression_gradient1.png
+[normal]: http://eli.thegreenplace.net/images/math/20baabd9d33dcd26003bc44c7d81ba39e1ad4caa.png
